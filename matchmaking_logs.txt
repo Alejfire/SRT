@@ -1,0 +1,80 @@
+Fri Feb  6 15:59:48 2026 - Nuevo usuario registrado: AliceTowers27
+Fri Feb  6 15:59:48 2026 - Nuevo usuario registrado: Alejfire
+Fri Feb  6 15:59:48 2026 - Inicio de sesión: AliceTowers27
+Fri Feb  6 15:59:48 2026 - Inicio de sesión: Alejfire
+Fri Feb  6 15:59:48 2026 - AliceTowers27 entró a la cola de matchmaking
+Fri Feb  6 15:59:48 2026 - Alejfire entró a la cola de matchmaking
+Fri Feb  6 15:59:48 2026 - Partida creada: AliceTowers27 vs Alejfire (ID 1)
+Fri Feb  6 15:59:48 2026 - Resultado registrado: AliceTowers27 ganó partida 1
+Fri Feb  6 15:59:49 2026 - Nuevo usuario registrado: AliceTowers27
+Fri Feb  6 15:59:49 2026 - Nuevo usuario registrado: Alejfire
+Fri Feb  6 15:59:49 2026 - Inicio de sesión: AliceTowers27
+Fri Feb  6 15:59:49 2026 - Inicio de sesión: Alejfire
+Fri Feb  6 15:59:49 2026 - AliceTowers27 entró a la cola de matchmaking
+Fri Feb  6 15:59:49 2026 - Alejfire entró a la cola de matchmaking
+Fri Feb  6 15:59:49 2026 - Partida creada: AliceTowers27 vs Alejfire (ID 1)
+Fri Feb  6 15:59:49 2026 - Resultado registrado: AliceTowers27 ganó partida 1
+Fri Feb  6 15:59:49 2026 - Nuevo usuario registrado: AliceTowers27
+Fri Feb  6 15:59:49 2026 - Nuevo usuario registrado: Alejfire
+Fri Feb  6 15:59:49 2026 - Inicio de sesión: AliceTowers27
+Fri Feb  6 15:59:49 2026 - Inicio de sesión: Alejfire
+Fri Feb  6 15:59:49 2026 - AliceTowers27 entró a la cola de matchmaking
+Fri Feb  6 15:59:49 2026 - Alejfire entró a la cola de matchmaking
+Fri Feb  6 15:59:49 2026 - Partida creada: AliceTowers27 vs Alejfire (ID 1)
+Fri Feb  6 15:59:49 2026 - Resultado registrado: AliceTowers27 ganó partida 1
+Fri Feb  6 15:59:50 2026 - Nuevo usuario registrado: AliceTowers27
+Fri Feb  6 15:59:50 2026 - Nuevo usuario registrado: Alejfire
+Fri Feb  6 15:59:50 2026 - Inicio de sesión: AliceTowers27
+Fri Feb  6 15:59:50 2026 - Inicio de sesión: Alejfire
+Fri Feb  6 15:59:50 2026 - AliceTowers27 entró a la cola de matchmaking
+Fri Feb  6 15:59:50 2026 - Alejfire entró a la cola de matchmaking
+Fri Feb  6 15:59:50 2026 - Partida creada: AliceTowers27 vs Alejfire (ID 1)
+Fri Feb  6 15:59:50 2026 - Resultado registrado: AliceTowers27 ganó partida 1
+Fri Feb  6 15:59:50 2026 - Nuevo usuario registrado: AliceTowers27
+Fri Feb  6 15:59:50 2026 - Nuevo usuario registrado: Alejfire
+Fri Feb  6 15:59:50 2026 - Inicio de sesión: AliceTowers27
+Fri Feb  6 15:59:50 2026 - Inicio de sesión: Alejfire
+Fri Feb  6 15:59:50 2026 - AliceTowers27 entró a la cola de matchmaking
+Fri Feb  6 15:59:50 2026 - Alejfire entró a la cola de matchmaking
+Fri Feb  6 15:59:50 2026 - Partida creada: AliceTowers27 vs Alejfire (ID 1)
+Fri Feb  6 15:59:50 2026 - Resultado registrado: AliceTowers27 ganó partida 1
+Fri Feb  6 15:59:50 2026 - Nuevo usuario registrado: AliceTowers27
+Fri Feb  6 15:59:50 2026 - Nuevo usuario registrado: Alejfire
+Fri Feb  6 15:59:50 2026 - Inicio de sesión: AliceTowers27
+Fri Feb  6 15:59:50 2026 - Inicio de sesión: Alejfire
+Fri Feb  6 15:59:50 2026 - AliceTowers27 entró a la cola de matchmaking
+Fri Feb  6 15:59:50 2026 - Alejfire entró a la cola de matchmaking
+Fri Feb  6 15:59:50 2026 - Partida creada: AliceTowers27 vs Alejfire (ID 1)
+Fri Feb  6 15:59:50 2026 - Resultado registrado: AliceTowers27 ganó partida 1
+Fri Feb  6 16:03:30 2026 - Nuevo usuario registrado: AliceTowers27
+Fri Feb  6 16:03:30 2026 - Nuevo usuario registrado: Alejfire
+Fri Feb  6 16:03:30 2026 - Inicio de sesión: AliceTowers27
+Fri Feb  6 16:03:30 2026 - Inicio de sesión: Alejfire
+Fri Feb  6 16:03:30 2026 - AliceTowers27 entró a la cola de matchmaking
+Fri Feb  6 16:03:30 2026 - Alejfire entró a la cola de matchmaking
+Fri Feb  6 16:03:30 2026 - Partida creada: AliceTowers27 vs Alejfire (ID 1)
+Fri Feb  6 16:03:30 2026 - Resultado registrado: AliceTowers27 ganó partida 1
+Fri Feb  6 16:03:52 2026 - Nuevo usuario registrado: AliceTowers27
+Fri Feb  6 16:03:52 2026 - Nuevo usuario registrado: Alejfire
+Fri Feb  6 16:03:52 2026 - Inicio de sesión: AliceTowers27
+Fri Feb  6 16:03:52 2026 - Inicio de sesión: Alejfire
+Fri Feb  6 16:03:52 2026 - AliceTowers27 entró a la cola de matchmaking
+Fri Feb  6 16:03:52 2026 - Alejfire entró a la cola de matchmaking
+Fri Feb  6 16:03:52 2026 - Partida creada: AliceTowers27 vs Alejfire (ID 1)
+Fri Feb  6 16:03:52 2026 - Resultado registrado: AliceTowers27 ganó partida 1
+Fri Feb  6 16:03:53 2026 - Nuevo usuario registrado: AliceTowers27
+Fri Feb  6 16:03:53 2026 - Nuevo usuario registrado: Alejfire
+Fri Feb  6 16:03:53 2026 - Inicio de sesión: AliceTowers27
+Fri Feb  6 16:03:53 2026 - Inicio de sesión: Alejfire
+Fri Feb  6 16:03:53 2026 - AliceTowers27 entró a la cola de matchmaking
+Fri Feb  6 16:03:53 2026 - Alejfire entró a la cola de matchmaking
+Fri Feb  6 16:03:53 2026 - Partida creada: AliceTowers27 vs Alejfire (ID 1)
+Fri Feb  6 16:03:53 2026 - Resultado registrado: AliceTowers27 ganó partida 1
+Fri Feb  6 16:04:15 2026 - Nuevo usuario registrado: AliceTowers27
+Fri Feb  6 16:04:15 2026 - Nuevo usuario registrado: Alejfire
+Fri Feb  6 16:04:15 2026 - Inicio de sesión: AliceTowers27
+Fri Feb  6 16:04:15 2026 - Inicio de sesión: Alejfire
+Fri Feb  6 16:04:15 2026 - AliceTowers27 entró a la cola de matchmaking
+Fri Feb  6 16:04:15 2026 - Alejfire entró a la cola de matchmaking
+Fri Feb  6 16:04:15 2026 - Partida creada: AliceTowers27 vs Alejfire (ID 1)
+Fri Feb  6 16:04:15 2026 - Resultado registrado: AliceTowers27 ganó partida 1
