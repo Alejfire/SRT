@@ -1,106 +1,78 @@
-import hashlib
+import threading
 import time
 from collections import deque
+from random import uniform
 
-users_db = {}
-match_history = []
+users_db = {
+    "Alejfire": {"mmr": 1200},
+    "AliceTowers": {"mmr": 1150},
+    "Minecrafter100": {"mmr": 1100},
+    "ShadowSn1per": {"mmr": 1180},
+    "NovaStrike": {"mmr": 1120},
+    "PixelWarrior": {"mmr": 1090}
+}
+
 matchmaking_queue = deque()
-session_tokens = {}
+match_history = []
 
+queue_semaphore = threading.Semaphore(1)
 
-def hash_password(password):
-    return hashlib.sha256(password.encode()).hexdigest()
+def join_matchmaking(player):
+    print(f"{player} está intentando acceder a la cola...")
+    time.sleep(uniform(0.1, 0.5))
 
-def generate_token(username):
-    token = hashlib.sha256(f"{username}{time.time()}".encode()).hexdigest()
-    session_tokens[token] = username
-    return token
+    queue_semaphore.acquire()
+    print(f"{player} obtuvo acceso al semáforo.")
+    
+    matchmaking_queue.append(player)
+    print(f"{player} entró a la cola. Jugadores en cola: {len(matchmaking_queue)}")
+    
+    time.sleep(1.5)
 
-def log_event(event):
-    with open("matchmaking_logs.txt", "a") as f:
-        f.write(f"{time.ctime()} - {event}\n")
+    print(f"{player} libera el semáforo.")
+    queue_semaphore.release()
 
-
-def register(username, password):
-    if username in users_db:
-        return "Usuario ya existe"
-    users_db[username] = {
-        "password": hash_password(password),
-        "mmr": 1000
-    }
-    log_event(f"Nuevo usuario registrado: {username}")
-    return "Registro exitoso"
-
-def login(username, password):
-    if username not in users_db:
-        return None
-    if users_db[username]["password"] == hash_password(password):
-        token = generate_token(username)
-        log_event(f"Inicio de sesión: {username}")
-        return token
-    return None
-
-def authenticate(token):
-    return session_tokens.get(token)
-
-
-def join_matchmaking(token):
-    username = authenticate(token)
-    if not username:
-        return "No autenticado"
-    matchmaking_queue.append(username)
-    log_event(f"{username} entró a la cola de matchmaking")
-    return "En cola"
+def save_match_to_file(match):
+    with open("historial_partidas.txt", "a") as f:
+        f.write(f"Partida {match['id']}: {match['players'][0]} vs {match['players'][1]}\n")
 
 def create_match():
-    if len(matchmaking_queue) < 2:
-        return None
+    queue_semaphore.acquire()
 
-    p1 = matchmaking_queue.popleft()
-    p2 = matchmaking_queue.popleft()
+    if len(matchmaking_queue) >= 2:
+        p1 = matchmaking_queue.popleft()
+        p2 = matchmaking_queue.popleft()
+        match_id = len(match_history) + 1
+        match = {"id": match_id, "players": [p1, p2]}
+        match_history.append(match)
+        save_match_to_file(match)
+        print(f"\nPartida creada: {p1} vs {p2}\n")
+    else:
+        print("No hay suficientes jugadores para crear partida.")
 
-    mmr_diff = abs(users_db[p1]["mmr"] - users_db[p2]["mmr"])
-    if mmr_diff > 300:
-        log_event("Diferencia de MMR muy alta, reinsertando en cola")
-        matchmaking_queue.append(p1)
-        matchmaking_queue.append(p2)
-        return None
+    queue_semaphore.release()
 
-    match_id = len(match_history) + 1
-    match = {"id": match_id, "players": [p1, p2], "result": None}
-    match_history.append(match)
-    log_event(f"Partida creada: {p1} vs {p2} (ID {match_id})")
-    return match
-
-
-def report_result(match_id, winner):
-    for match in match_history:
-        if match["id"] == match_id and match["result"] is None:
-            if winner not in match["players"]:
-                return "Resultado inválido"
-
-            loser = [p for p in match["players"] if p != winner][0]
-            users_db[winner]["mmr"] += 25
-            users_db[loser]["mmr"] -= 25
-            match["result"] = winner
-
-            log_event(f"Resultado registrado: {winner} ganó partida {match_id}")
-            return "Resultado guardado"
-    return "Partida no válida o ya cerrada"
+def simulate_player(player):
+    join_matchmaking(player)
 
 if __name__ == "__main__":
-    print(register("AliceTowers27", "1234"))
-    print(register("Alejfire", "abcd"))
+    open("historial_partidas.txt", "w").close()
 
-    token1 = login("AliceTowers27", "1234")
-    token2 = login("Alejfire", "abcd")
+    threads = []
 
-    join_matchmaking(token1)
-    join_matchmaking(token2)
+    for player in users_db.keys():
+        t = threading.Thread(target=simulate_player, args=(player,))
+        threads.append(t)
+        t.start()
 
-    match = create_match()
-    if match:
-        print("Partida creada:", match)
-        print(report_result(match["id"], "AliceTowers27"))
+    for t in threads:
+        t.join()
 
-    print("MMR Final:", users_db)
+    print("\nIntentando crear partidas...\n")
+    
+    while len(matchmaking_queue) >= 2:
+        create_match()
+        time.sleep(1)
+
+    print("\nHistorial final de partidas:")
+    print(match_history)
