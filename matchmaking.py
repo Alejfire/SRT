@@ -13,11 +13,17 @@ users_db = {
 }
 
 matchmaking_queue = deque()
+
 match_history = []
 
 queue_semaphore = threading.Semaphore(1)
 
+
 def join_matchmaking(player):
+    """
+    Función que simula a un jugador intentando entrar
+    a la cola de matchmaking.
+    """
     try:
         if player not in users_db:
             raise Exception("Jugador no existe en la base de datos")
@@ -41,14 +47,22 @@ def join_matchmaking(player):
             print(f"{player} libera el semáforo.")
             queue_semaphore.release()
 
+
 def save_match_to_file(match):
+    """
+    Guarda la partida en un archivo de historial.
+    """
     try:
         with open("historial_partidas.txt", "a") as f:
             f.write(f"Partida {match['id']}: {match['players'][0]} vs {match['players'][1]}\n")
     except IOError:
         print("Error al guardar el archivo de historial.")
 
+
 def create_match():
+    """
+    Crea una partida usando dos jugadores de la cola.
+    """
     try:
         queue_semaphore.acquire()
 
@@ -74,11 +88,33 @@ def create_match():
     finally:
         queue_semaphore.release()
 
+
+def create_matches_recursive():
+    """
+    Función recursiva que sigue creando partidas
+    mientras haya al menos dos jugadores en la cola.
+    """
+
+    if len(matchmaking_queue) < 2:
+        print("No hay suficientes jugadores para más partidas.")
+        return
+
+    create_match()
+
+    time.sleep(1)
+
+    create_matches_recursive()
+
+
 def simulate_player(player):
+    """
+    Función que ejecuta el hilo de cada jugador.
+    """
     try:
         join_matchmaking(player)
     except Exception as e:
         print(f"Error en el hilo del jugador {player}: {e}")
+
 
 if __name__ == "__main__":
 
@@ -99,9 +135,7 @@ if __name__ == "__main__":
 
     print("\nIntentando crear partidas...\n")
 
-    while len(matchmaking_queue) >= 2:
-        create_match()
-        time.sleep(1)
+    create_matches_recursive()
 
     print("\nHistorial final de partidas:")
     print(match_history)
