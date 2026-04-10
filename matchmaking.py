@@ -1,3 +1,17 @@
+"""
+Proyecto Final - Sistema de Matchmaking en Tiempo Real
+
+Descripción:
+Este sistema simula un entorno de matchmaking competitivo donde múltiples
+jugadores acceden concurrentemente a una cola para ser emparejados.
+
+Características:
+- Uso de hilos para concurrencia
+- Implementación de semáforos para sincronización
+- Emparejamiento basado en MMR
+- Registro de partidas en archivo
+"""
+
 import threading
 import time
 from collections import deque
@@ -13,115 +27,72 @@ users_db = {
 }
 
 matchmaking_queue = deque()
-
 match_history = []
 
 queue_semaphore = threading.Semaphore(1)
 
 
 def join_matchmaking(player):
-    """
-    Función que simula a un jugador intentando entrar
-    a la cola de matchmaking.
-    """
+    """Agrega un jugador a la cola de matchmaking de forma segura"""
+    print(f"{player} está intentando entrar a la cola...")
+    time.sleep(uniform(0.1, 0.5))
+
+    queue_semaphore.acquire()
     try:
-        if player not in users_db:
-            raise Exception("Jugador no existe en la base de datos")
-
-        print(f"{player} está intentando acceder a la cola...")
-        time.sleep(uniform(0.1, 0.5))
-
-        queue_semaphore.acquire()
-        print(f"{player} obtuvo acceso al semáforo.")
+        print(f"🟢 {player} accedió a la sección crítica")
 
         matchmaking_queue.append(player)
-        print(f"{player} entró a la cola. Jugadores en cola: {len(matchmaking_queue)}")
+        print(f"{player} entró a la cola. Total en cola: {len(matchmaking_queue)}")
 
-        time.sleep(1.5)
+        time.sleep(1)
 
-    except Exception as e:
-        print(f"Error con el jugador {player}: {e}")
-
-    finally:
-        if queue_semaphore._value == 0:
-            print(f"{player} libera el semáforo.")
-            queue_semaphore.release()
-
-
-def save_match_to_file(match):
-    """
-    Guarda la partida en un archivo de historial.
-    """
-    try:
-        with open("historial_partidas.txt", "a") as f:
-            f.write(f"Partida {match['id']}: {match['players'][0]} vs {match['players'][1]}\n")
-    except IOError:
-        print("Error al guardar el archivo de historial.")
-
-
-def create_match():
-    """
-    Crea una partida usando dos jugadores de la cola.
-    """
-    try:
-        queue_semaphore.acquire()
-
-        if len(matchmaking_queue) >= 2:
-            p1 = matchmaking_queue.popleft()
-            p2 = matchmaking_queue.popleft()
-
-            match_id = len(match_history) + 1
-            match = {"id": match_id, "players": [p1, p2]}
-
-            match_history.append(match)
-
-            save_match_to_file(match)
-
-            print(f"\nPartida creada: {p1} vs {p2}\n")
-
-        else:
-            raise Exception("No hay suficientes jugadores para crear partida.")
-
-    except Exception as e:
-        print(f"Error creando partida: {e}")
-
+        print(f"🔴 {player} sale de la sección crítica")
     finally:
         queue_semaphore.release()
 
 
-def create_matches_recursive():
-    """
-    Función recursiva que sigue creando partidas
-    mientras haya al menos dos jugadores en la cola.
-    """
+def match_players():
+    """Empareja jugadores basándose en su MMR"""
+    queue_semaphore.acquire()
+    try:
+        if len(matchmaking_queue) < 2:
+            return None
 
-    if len(matchmaking_queue) < 2:
-        print("No hay suficientes jugadores para más partidas.")
-        return
+        sorted_players = sorted(list(matchmaking_queue), key=lambda p: users_db[p]["mmr"])
 
-    create_match()
+        p1 = sorted_players[0]
+        p2 = sorted_players[1]
 
-    time.sleep(1)
+        matchmaking_queue.remove(p1)
+        matchmaking_queue.remove(p2)
 
-    create_matches_recursive()
+        match_id = len(match_history) + 1
+        match = {"id": match_id, "players": [p1, p2]}
+
+        match_history.append(match)
+        save_match(match)
+
+        print(f"\n🎮 Partida creada: {p1} vs {p2}\n")
+
+        return match
+    finally:
+        queue_semaphore.release()
+
+
+def save_match(match):
+    """Guarda el historial de partidas en un archivo"""
+    with open("historial_partidas.txt", "a") as f:
+        f.write(f"Partida {match['id']}: {match['players'][0]} vs {match['players'][1]}\n")
 
 
 def simulate_player(player):
-    """
-    Función que ejecuta el hilo de cada jugador.
-    """
-    try:
-        join_matchmaking(player)
-    except Exception as e:
-        print(f"Error en el hilo del jugador {player}: {e}")
+    """Simula un jugador entrando al sistema"""
+    join_matchmaking(player)
 
 
-if __name__ == "__main__":
-
-    try:
-        open("historial_partidas.txt", "w").close()
-    except IOError:
-        print("No se pudo crear el archivo de historial.")
+def run_matchmaking():
+    """Ejecuta el sistema completo"""
+    open("historial_partidas.txt", "w").close()
 
     threads = []
 
@@ -133,9 +104,15 @@ if __name__ == "__main__":
     for t in threads:
         t.join()
 
-    print("\nIntentando crear partidas...\n")
+    print("\nCreando partidas...\n")
 
-    create_matches_recursive()
+    while len(matchmaking_queue) >= 2:
+        match_players()
+        time.sleep(1)
 
-    print("\nHistorial final de partidas:")
+    print("\nHistorial final:")
     print(match_history)
+
+
+if __name__ == "__main__":
+    run_matchmaking()
